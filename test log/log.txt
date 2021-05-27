@@ -1,0 +1,54 @@
+ROS-melodic install URL:
+http://wiki.ros.org/melodic/Installation/Ubuntu
+
+--------------------------------------------------------------
+
+ydlidar github:
+install ydlidar on ROS-melodic
+
+https://github.com/YDLIDAR/ydlidar_ros/blob/master/docs/ydlidar.md
+
+
+------------------------------------------------------------------
+
+
+ROS packages for melodic URL:
+
+http://repositories.ros.org/status_page/ros_melodic_default.html?q=navigation&s=2
+
+
+slam_gmapping URL:
+https://github.com/ros-perception/slam_gmapping/tree/melodic-devel
+
+openslam_gmapping URL:
+https://github.com/ros-perception/openslam_gmapping/tree/melodic-devel
+
+navigation URL:
+https://github.com/ros-planning/navigation/tree/melodic-devel
+
+
+
+---------------------------------------------------------------------
+
+
+navigation error message:
+Error : Could NOT find SDL (missing: SDL_LIBRARY SDL_INCLUDE_DIR)
+
+solve:
+sudo apt-get install libsdl-image1.2-dev
+sudo apt-get install libsdl-dev
+
+
+Error : Could not find a package configuration file provided by "tf2_sensor_msgs"
+
+solve:
+sudo apt-get install ros-melodic-tf2-sensor-msgs
+
+
+Error : Could not find a package configuration file provided by "move_base_msgs"
+
+solve:
+
+
+
+
