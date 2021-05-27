@@ -31,7 +31,7 @@ https://github.com/ros-planning/navigation/tree/melodic-devel
 ---------------------------------------------------------------------
 
 
-navigation error message:
+make navigation error message:
 
 
 Error : Could NOT find SDL (missing: SDL_LIBRARY SDL_INCLUDE_DIR)
@@ -51,9 +51,6 @@ apt install ros-melodic-move-base-msgs
 
 
 ------------------------------------------------------------------------------
-
-
-
 
 
 
