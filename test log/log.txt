@@ -52,20 +52,24 @@ apt install ros-melodic-move-base-msgs
 
 ------------------------------------------------------------------------------
 
+在ROS-melodic中安裝並運行gmapping函數包
+https://www.programmersought.com/article/85157677089/
+
+
+ git clone https://github.com/ros/geometry2/tree/melodic-devel
+ git clone https://github.com/ros-planning/navigation/tree/melodic-devel
+ git clone https://github.com/ros-planning/navigation_msgs.git
+ git clone https://github.com/ros-perception/slam_gmapping.git
+ git clone https://github.com/ros-perception/openslam_gmapping
+
+
+ERROR：Could NOT find SDL (missing: SDL_LIBRARY SDL_INCLUDE_DIR)
+solve:
+sudo apt-get install libsdl-image1.2-dev
+sudo apt-get install libsdl-dev
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ERROR：Invoking "make -j8 -l8" failed
+solve:
+~/catkin_ws$ rm -rf build devel
