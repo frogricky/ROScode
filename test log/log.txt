@@ -71,5 +71,5 @@ sudo apt-get install libsdl-dev
 
 
 ERROR：Invoking "make -j8 -l8" failed
-solve:
+solve: 
 ~/catkin_ws$ rm -rf build devel
