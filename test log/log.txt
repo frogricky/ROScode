@@ -56,11 +56,46 @@ apt install ros-melodic-move-base-msgs
 https://www.programmersought.com/article/85157677089/
 
 
- git clone https://github.com/ros/geometry2/tree/melodic-devel
- git clone https://github.com/ros-planning/navigation/tree/melodic-devel
- git clone https://github.com/ros-planning/navigation_msgs.git
- git clone https://github.com/ros-perception/slam_gmapping.git
- git clone https://github.com/ros-perception/openslam_gmapping
+
+sudo apt-get install libsdl1.2-dev
+sudo apt install libsdl-image1.2-dev
+
+
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+ catkin_init_workspace
+
+
+git clone https://github.com/ros-perception/openslam_gmapping
+git clone https://github.com/ros-perception/slam_gmapping.git
+git clone https://github.com/ros-planning/navigation.git
+git clone https://github.com/ros/geometry2.git
+git clone https://github.com/ros-planning/navigation_msgs.git
+
+
+catkin_make_isolated
+
+
+sudo apt-get install ros-melodic-gmapping
+
+
+roscore
+rosparam set use_sim_time true			//Configure ROS to enable the time in the playback data instead of the local time, which affects the output results of the API at all times of the entire system. By default, ROS uses the time of the ubuntu system, which is the wall clock. But when we replay a record history file, it records the historical time, so we need to tell ROS to enable the simulation time from now on.
+rosrun gmapping slam_gmapping scan:=base_scan		//Start gmapping, and monitor the messages sent by scan_base topic. The topic is published by the simulator.
+rosrun rviz rviz		// Start RViz
+rosbag play XXX.bag	// Run the data set
+
+
+
+
+  |*****************************************************************************
+  | git clone https://github.com/ros/geometry2/tree/melodic-devel              |
+  | git clone https://github.com/ros-planning/navigation/tree/melodic-devel    |
+  | git clone https://github.com/ros-planning/navigation_msgs.git              |
+  | git clone https://github.com/ros-perception/slam_gmapping.git              |
+  | git clone https://github.com/ros-perception/openslam_gmapping              |
+  |                                                                            |
+  ******************************************************************************
 
 
 ERROR：Could NOT find SDL (missing: SDL_LIBRARY SDL_INCLUDE_DIR)
@@ -69,7 +104,36 @@ sudo apt-get install libsdl-image1.2-dev
 sudo apt-get install libsdl-dev
 
 
-
 ERROR：Invoking "make -j8 -l8" failed
 solve: 
 ~/catkin_ws$ rm -rf build devel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
