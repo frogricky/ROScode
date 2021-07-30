@@ -109,20 +109,34 @@ solve:
 ~/catkin_ws$ rm -rf build devel
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 --------------------------------------------------------------------------------
+
+
+Catkin Command Line Tools
+
+https://catkin-tools.readthedocs.io/en/latest/index.html
+
+
+This Python package provides command line tools for working with the catkin 
+meta-buildsystem and catkin workspaces. These tools are separate from the 
+Catkin CMake macros used in Catkin source packages. For documentation on 
+creating catkin
+
+
+-------------------------------------------------------------------------------------
+
+catkin_make, cmake, catkin build 區別
+
+https://blog.csdn.net/qq_23225073/article/details/102825545
+
+核心的Catkin元构建系统最初的设计目的是为了高效地构建众多相互依赖但独立开发的CMake项目。
+这是由机器人操作系统(ROS)社区开发的，最初是作为标准元构建工具rosbuild的继承者。
+ROS社区的分布式开发模型包含许多模块化项目，构建可分发的二进制包的需求推动了系统的设计，
+该系统有效地合并了许多不同的项目，从而利用单个目标依赖树来构建空间。
+
+
+-------------------------------------------------------------------------------------
+
 
 
 
