@@ -63,7 +63,7 @@ sudo apt install libsdl-image1.2-dev
 
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
- catkin_init_workspace
+catkin_init_workspace
 
 
 git clone https://github.com/ros-perception/openslam_gmapping
@@ -80,10 +80,10 @@ sudo apt-get install ros-melodic-gmapping
 
 
 roscore
-rosparam set use_sim_time true			//Configure ROS to enable the time in the playback data instead of the local time, which affects the output results of the API at all times of the entire system. By default, ROS uses the time of the ubuntu system, which is the wall clock. But when we replay a record history file, it records the historical time, so we need to tell ROS to enable the simulation time from now on.
+rosparam set use_sim_time true		             	//Configure ROS to enable the time in the playback data instead of the local time, which affects the output results of the API at all times of the entire system. By default, ROS uses the time of the ubuntu system, which is the wall clock. But when we replay a record history file, it records the historical time, so we need to tell ROS to enable the simulation time from now on.
 rosrun gmapping slam_gmapping scan:=base_scan		//Start gmapping, and monitor the messages sent by scan_base topic. The topic is published by the simulator.
-rosrun rviz rviz		// Start RViz
-rosbag play XXX.bag	// Run the data set
+rosrun rviz rviz	                             	// Start RViz
+rosbag play XXX.bag                           	// Run the data set
 
 
 
@@ -136,6 +136,84 @@ ROS社区的分布式开发模型包含许多模块化项目，构建可分发�
 
 
 -------------------------------------------------------------------------------------
+
+ROS-melodic-SLAM tutorial
+
+https://github.com/gmac7892/SLAM/blob/master/tutorial.md#ros-melodic-slam-tutorial
+
+
+sudo apt-get install ros-melodic-joy 
+sudo apt-get install ros-melodic-teleop-twist-joy
+sudo apt-get install ros-melodic-teleop-twist-keyboard
+sudo apt-get install ros-melodic-laser-proc
+sudo apt-get install ros-melodic-rgbd-launch
+sudo apt-get install ros-melodic-depthimage-to-laserscan
+sudo apt-get install ros-melodic-rosserial-Arduino  --------------------->>  sudo apt-get install ros-melodic-rosserial-arduino
+sudo apt-get install ros-melodic-rosserial-python
+sudo apt-get install ros-melodic-rosserial-server
+sudo apt-get install ros-melodic-rosserial-client
+sudo apt-get install ros-melodic-rosserial-msgs
+sudo apt-get install ros-melodic-amcl
+sudo apt-get install ros-melodic-map-server
+sudo apt-get install ros-melodic-move-base
+sudo apt-get install ros-melodic-urdf
+sudo apt-get install ros-melodic-xacro
+sudo apt-get install ros-melodic-compressed-image-transport
+sudo apt-get install ros-melodic-rqt-image-view
+sudo apt-get install ros-melodic-gmapping
+sudo apt-get install ros-melodic-navigation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------
+
+[Err] [REST.cc:205] Error in REST request appears when running Gazebo
+
+[Err] [REST.cc:205] Error in REST request
+
+
+solve:
+
+Open edit~/.ignition/fuel/config.yamlfile
+$ sudo gedit ~/.ignition/fuel/config.yaml
+
+
+>>First noteurl : https://api.ignitionfuel.org
+>>and addurl: https://api.ignitionrobotics.org
+
+|---------------------------------------------------|
+|   1|   servers:                                   |
+|   2|     -                                        |
+|   3|       name: osrf                             |
+|   4|      url: https://api.ignitionrobotics.org   |
+|   5|   # url: https://api.ignitionfuel.org        |
+|                                                   |
+|---------------------------------------------------|
+
+
+------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 
 
