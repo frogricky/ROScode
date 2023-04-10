@@ -22,6 +22,14 @@ void Motor::initialize(byte pwm, byte enable, byte directionA, byte directionB, 
     digitalWrite(directionA,LOW);
     digitalWrite(directionB,LOW);
 
+}
 
 
+
+void Motor::disattach(){
+    analogWrite(pwm, 0);
+
+    digitalWrite(enable,LOW);
+    digitalWrite(directionA,LOW);
+    digitalWrite(directionB,LOW);
 }
