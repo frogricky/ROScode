@@ -13,6 +13,9 @@ Motor::Motor(byte P, byte En, byte dirA, byte dirB, byte A, byte B) {
     enA = A;
     enB = B;
     
+    motor = new Encoder(A,B);
+
+    
     initializer();
 }
 
@@ -50,9 +53,9 @@ void Motor::disattach(){
 
 
 int Motor::EncRead(){
-  Encoder motor(enA,enB);
   
-  return motor.read();
+  
+  return motor->read();
 }
 
 void Motor::Move(int in){

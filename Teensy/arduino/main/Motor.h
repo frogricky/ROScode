@@ -1,7 +1,7 @@
 #ifndef __Motor_H__
 #define __Motor_H__
-
 #include"Arduino.h"
+#include <Encoder.h>
 
 class Motor{
 
@@ -21,7 +21,7 @@ class Motor{
         byte directionB;
         byte enA;
         byte enB;
-
+        Encoder* motor = new Encoder(14,15);
 
 };
 

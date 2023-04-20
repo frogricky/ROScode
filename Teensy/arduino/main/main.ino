@@ -21,9 +21,13 @@ void setup() {
 void loop() {
   runTime = micros();
   
+  if (Serial.available() > 0) {
+
+
+    
+  }
   
-
-
+  Serial.println(motor1.EncRead());
 
 
 
