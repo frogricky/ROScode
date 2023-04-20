@@ -1,5 +1,5 @@
-int* input = 0; //宣告名為"input"的變數
-int* setpoint = 0;
+int input = 0; //宣告名為"input"的變數
+int setpoint = 0;
 double p = 0;
 double i = 0;
 double d = 0;
@@ -48,7 +48,7 @@ void handleInput() {
     else if (isInput) { //如果旗標為true
       input = inputStr.toInt(); //將輸入的字串轉換為整數並存入input變數
       Serial.print("input set to: "); //顯示訊息
-      Serial.println(*input); //顯示input變數的值
+      Serial.println(input); //顯示input變數的值
       isInput = false; //重置旗標
     }
   
@@ -60,7 +60,7 @@ void handleInput() {
     else if (isInput) { //如果旗標為true
       input = inputStr.toInt(); //將輸入的字串轉換為整數並存入input變數
       Serial.print("input set to: "); //顯示訊息
-      Serial.println(*input); //顯示input變數的值
+      Serial.println(input); //顯示input變數的值
       isInput = false; //重置旗標
     }
 
@@ -74,7 +74,7 @@ void printInput() {
   static int old_input = 0; //宣告名為"old_input"的靜態變數，用於儲存上一次的input值
   if (input != old_input) { //如果input值有變動
     Serial.print("input: "); //顯示訊息
-    Serial.println(*input); //顯示input變數的值
+    Serial.println(input); //顯示input變數的值
     old_input = input; //更新old_input變數的值
   }
 }

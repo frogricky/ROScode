@@ -2,7 +2,7 @@
 #include "Motor.h"
 
 
-
+const byte timeout = 13;
 const int delayt = 5000;
 
 unsigned long runTime;
@@ -14,8 +14,8 @@ Motor motor3(4,21,2,3,10,9);
 void setup() {
   Serial.begin(115200);
   Serial.println("Basic Encoder Test:");
-  
 
+  pinMode(timeout, OUTPUT);
 }
 
 void loop() {
@@ -32,7 +32,7 @@ void loop() {
 
 
 
- if((micros() - runTime) > delayt) Serial.println("time out");
+ if((micros() - runTime) > delayt) digitalWrite(timeout,HIGH);
  delay(5);
  
 }
