@@ -7,6 +7,9 @@ PD::PD(double p, double i, double d, double t, double outH, double outL, bool re
   ki = i;
   kd = d;
   dt = t;
+  AfterP = kp;
+  AfterI = ki;
+  AfterD = kd;
   outHIGH = outH;
   outLOW = outL; 
   reinitialize = re;
@@ -30,36 +33,65 @@ double PD::PIDrun(double variable, double setp){
     derivativeAction = 0;
   } 
 
-  return PIDrun2();
+  return PIDrun2(timef);
 }
 
 
-double PD::PIDrun2(){
-  
+double PD::PIDrun2(double timef){
+  setVariable = setpoint - ProcessVariable;
   
   if(!isinf(kp / ki)){
-
-
+    double error = ((setVariable + setVariableAfter) * 0.5 * (kp / ki) * timef) + integratedError;
+    if(reinitialize || ((kp == AfterP) && (ki == AfterI) && (kd == AfterD))){
+      
+      if(((setVariable * kp) <= outHIGH) && ((setVariable * kp) >= outLOW)) {
+        if(reinitialize) integratedError = 0;
+        else integratedError = error;
+      }
+      else{
+        if ((setVariable * kp) > outHIGH) integratedError = outHIGH - (setVariable * kp);
+        else integratedError = outLOW - (setVariable * kp);
+      }
+    }
+    else{
+      integratedError = AfterOUT - ((setVariable * kp) + derivativeAction);
+      return AfterOUT;
+    }
 
 
     return 0;
   }
   else{
-    double PIDout = ((setpoint - ProcessVariable) * kp) + derivativeAction;
-    if (PIDout > outHIGH) return outHIGH;
-    else if (PIDout < outLOW) return outLOW;
-    else return PIDout;
+    double PIDout = (setVariable * kp) + derivativeAction;
+    if (PIDout > outHIGH){
+      AfterOUT = outHIGH;
+      return outHIGH;
+    }
+    else if (PIDout < outLOW){
+      AfterOUT = outLOW;
+      return outLOW;
+    }
+    else {
+      AfterOUT = PIDout;
+      return PIDout;
+    }
     
   }
 
-  
+  AfterP = kp;
+  AfterI = ki;
+  AfterD = kd;
+  ProcessVariableAfter = setVariable;
 }
 
 
 void PD::setvariable(double p, double i, double d){
+  
   kp = p;
   ki = i;
   kd = d;  
+
+  
 }
 
 
