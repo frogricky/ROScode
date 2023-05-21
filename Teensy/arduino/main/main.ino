@@ -47,7 +47,7 @@ void loop() {
 
 
 
-//修改變數
+//-----------修改變數
 void processSerialInput() {
   if(Serial.available() > 0) {
     String input = Serial.readStringUntil('\n');
@@ -84,4 +84,4 @@ void updateValue(String input) {
     d = varValue.toFloat();
   }
 }
-//修改變數
+//-----------修改變數
