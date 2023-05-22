@@ -1,53 +1,16 @@
-#include "Arduino.h"
-#include "Motor.h"
-#include "PD.h"
-
-const byte timeout = 13;
-const int delayt = 5000;
-
 int setpoint = 0;
 float p = 0;
 float i = 0;
 float d = 0;
 
-unsigned long runTime;
-
-Motor motor1(22,21,23,0,17,16);
-Motor motor2(5,21,8,6,12,11);
-Motor motor3(4,21,2,3,10,9);
-
 void setup() {
-  Serial.begin(115200);
-  Serial.println("Basic Encoder Test:");
-
-  pinMode(timeout, OUTPUT);
+  Serial.begin(9600);
 }
-
 
 void loop() {
-  runTime = micros();
   processSerialInput();
-  
-  if (Serial.available() > 0) {
-
-
-    
-  }
-  
-  Serial.println(motor1.EncRead());
-
-
-
-
- if((micros() - runTime) > delayt) digitalWrite(timeout,HIGH);
- delay(5);
- 
 }
 
-
-
-
-//-----------修改變數
 void processSerialInput() {
   if(Serial.available() > 0) {
     String input = Serial.readStringUntil('\n');
@@ -84,4 +47,3 @@ void updateValue(String input) {
     d = varValue.toFloat();
   }
 }
-//-----------修改變數

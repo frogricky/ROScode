@@ -5,23 +5,23 @@
 
 class Motor{
 
-    public:
-        Motor(byte, byte, byte, byte, byte, byte);
-        void initializer();
-        int EncRead();
-        void Move(int);
-        void disattach();
-        ~Motor();
+  public:
+    Motor(byte, byte, byte, byte, byte, byte);
+    void initializer();
+    int EncRead();
+    void Move(int);
+    void disattach();
+    ~Motor();
 
 
-    private:
-        byte PWM;
-        byte Enable;
-        byte directionA;
-        byte directionB;
-        byte enA;
-        byte enB;
-        Encoder* motor = new Encoder(14,15);
+  private:
+    byte PWM;
+    byte Enable;
+    byte directionA;
+    byte directionB;
+    byte enA;
+    byte enB;
+    Encoder* motor = new Encoder(14,15);
 
 };
 
