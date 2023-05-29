@@ -28,15 +28,11 @@ void loop() {
   runTime = micros();
   processSerialInput();
   
-  if (Serial.available() > 0) {
 
-
-    
-  }
   
-  Serial.println(motor1.EncRead());
+  Serial.println(motor2.EncRead());
 
-
+  motor2.Move(0);
 
 
  if((micros() - runTime) > delayt) digitalWrite(timeout,HIGH);
@@ -44,7 +40,18 @@ void loop() {
  
 }
 
+//------------ex motor 
 
+void exmotor() {
+  motor1.Move(0);
+  motor1.Move(4095);
+  Serial.println(motor2.EncRead());
+
+
+
+}
+
+//------------ex motor
 
 
 //-----------修改變數

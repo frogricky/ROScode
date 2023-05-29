@@ -1,8 +1,7 @@
 #include "Motor.h"
 #include "Arduino.h"
 #include <Encoder.h>
-#include <PID_v2.h>
-
+#include "PD.h"
 
 
 Motor::Motor(byte P, byte En, byte dirA, byte dirB, byte A, byte B) {
@@ -56,6 +55,11 @@ int Motor::EncRead(){
 }
 
 void Motor::Move(int in){
+  if(in == 0) {
+    digitalWrite(Enable,LOW);
+    digitalWrite(directionA,LOW);
+    digitalWrite(directionB,LOW);   
+  }
   if(in <= 0) {
     digitalWrite(directionA,LOW);
     digitalWrite(directionB,HIGH);
@@ -64,7 +68,10 @@ void Motor::Move(int in){
     digitalWrite(directionA,HIGH);
     digitalWrite(directionB,LOW);
   }
+  digitalWrite(Enable,HIGH);
 
   analogWrite(PWM, abs(in));
   
 }
+
+
