@@ -26,9 +26,11 @@ void loop() {
 
   if (variable != previousValue) {
     previousValue = variable; 
-    Serial.println(variable, setpoint)); 
+    Serial.println(variable); 
   }
+  //Serial.println(PIDa.PIDrun(100, 50)); 
 
+  motor2.Move(variable);
 
   delay(5);
 }
