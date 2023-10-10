@@ -6,9 +6,9 @@ const byte timeout = 13;
 const int delayt = 5000;
 
 int setpoint = 0;
-float p = 0;
-float i = 0;
-float d = 0;
+double p = 0;
+double i = 0;
+double d = 0;
 
 unsigned long runTime;
 //(PWM, Enable, dirA, dirB, ENCA, ENCB)
@@ -19,6 +19,8 @@ Motor motor3(4,21,2,3,10,9);
 PD motorPD1(p,i,d,delayt/1000,4095,-4095);
 PD motorPD2(p,i,d,delayt/1000,4095,-4095);
 PD motorPD3(p,i,d,delayt/1000,4095,-4095);
+
+
 
 void setup() {
   Serial.begin(115200);
@@ -32,9 +34,9 @@ void loop() {
   runTime = micros();
   processSerialInput();
   
-  Serial.println(motor1.EncRead());
 
-  //motor1.Move(-200);
+  
+  exPIDmotor();
 
 
  if((micros() - runTime) > delayt) digitalWrite(timeout,HIGH);
@@ -42,23 +44,43 @@ void loop() {
  
 }
 
+
+
+
+
+
+
+
 void exPIDmotor(){
+  motorPD1.setvariable(p, i, d, false)
   motor1.Move(motorPD1.PIDrun(motor1.EncRead(), 100));
 
 }
 
+
+
+
 //------------ex motor 
-
 void exmotor() {
-  //motor1.Move(0);
-  //motor1.Move(4095);
+  motor1.Move(100);
   Serial.println(motor1.EncRead());
-
-
-
 }
-
 //------------ex motor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //-----------修改變數

@@ -23,7 +23,7 @@ Motor::~Motor(){
 }
 
 void Motor::initializer(){
-
+  //max=4095
   analogWriteFrequency(PWM, 10000);
   analogWriteResolution(12);
 
