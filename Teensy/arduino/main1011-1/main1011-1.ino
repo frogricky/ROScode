@@ -59,7 +59,7 @@ void loop() {
 
 void exPIDmotor(){
   motorPD1.setvariable(p, i, d, SerialStop);
-  //motor1.Move(motorPD1.PIDrun(motor1.EncRead(), setpoint));
+  motor1.Move(motorPD1.PIDrun(motor1.EncRead(), setpoint));
   Serial.println(motor1.EncRead());
   Serial.println(setpoint);
 }
