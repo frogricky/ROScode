@@ -1,72 +1,73 @@
-
+// 定義變數
+double p = 0.0;
+double i = 0.0;
+double d = 0.0;
 int setpoint = 0;
-double p = 0;
-double i = 0;
-double d = 0;
 bool stop = false;
 
+const byte timeout = 13;
+
+bool WorkingLamp = false;
+int Workcont  = 0;
 
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200);
-
-
-
+  // 開始Serial通訊
+  Serial.begin(9600);
+  Serial.println("Ready to receive data:");
+  pinMode(timeout, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  if(Serial.available() > 0) {
-    String input = Serial.readStringUntil('\n');
-    input.trim();
+  Workcont++;
 
-    if(input == "show") {
-      showValues();
-    } else {
-      if(input.indexOf(" ") > 0) {
-        updateValue(input);
+  // 檢查是否有新的Serial數據
+  if (Serial.available()) {
+    char buffer[50]; // 假設輸入的最大長度為50個字元
+    memset(buffer, 0, sizeof(buffer)); // 清空緩存
+
+    int length = Serial.readBytesUntil('\n', buffer, sizeof(buffer) - 1);
+
+    if (length > 0) {
+      buffer[length] = '\0'; // 添加終止字元
+
+      double tempP, tempI, tempD;
+      int tempSetpoint;
+      int tempStop;
+
+      // 使用sscanf解析數據
+      int parsed = sscanf(buffer, "%lf %lf %lf %d %d", &tempP, &tempI, &tempD, &tempSetpoint, &tempStop);
+
+      if (parsed == 5) {  // 如果成功解析了5個變數
+        p = tempP;
+        i = tempI;
+        d = tempD;
+        setpoint = tempSetpoint;
+        stop = static_cast<bool>(tempStop);
+
+        char outStr[20]; // 為dtostrf函數的輸出創建緩存
+
+        Serial.println("Data received successfully:");
+        dtostrf(p, 10, 7, outStr); Serial.print("P: "); Serial.println(outStr);
+        dtostrf(i, 10, 7, outStr); Serial.print("I: "); Serial.println(outStr);
+        dtostrf(d, 10, 7, outStr); Serial.print("D: "); Serial.println(outStr);
+        Serial.print("Setpoint: "); Serial.println(setpoint);
+        Serial.print("Stop: "); Serial.println(stop);
+      } else {
+        Serial.println("Failed to parse data. Please re-enter.");
+        Serial.print("P: "); Serial.println(p);
+        Serial.print("I: "); Serial.println(i);
+        Serial.print("D: "); Serial.println(d);
+        Serial.print("Setpoint: "); Serial.println(setpoint);
+        Serial.print("Stop: "); Serial.println(stop);
       }
     }
   }
-}
+  // 您的其他代碼...
+  if ((Workcont % 200) == 0){
+    if(WorkingLamp == false) WorkingLamp = true;
+    else WorkingLamp = false;
+    digitalWrite(timeout,WorkingLamp);
+  } 
 
-
-
-
-
-void processSerialInput() {
-  if(Serial.available() > 0) {
-    String input = Serial.readStringUntil('\n');
-    input.trim();
-
-    if(input == "show") {
-      showValues();
-    } else {
-      if(input.indexOf(" ") > 0) {
-        updateValue(input);
-      }
-    }
-  }
-}
-
-void showValues() {
-  Serial.println("setpoint: " + String(setpoint));
-  Serial.println("p: " + String(p, 7));
-  Serial.println("i: " + String(i, 7));
-  Serial.println("d: " + String(d, 7));
-}
-
-void updateValue(String input) {
-  String varName = input.substring(0, input.indexOf(" "));
-  String varValue = input.substring(input.indexOf(" ") + 1);
-
-  if(varName == "setpoint") {
-    setpoint = varValue.toInt();
-  } else if(varName == "p") {
-    p = varValue.toFloat();
-  } else if(varName == "i") {
-    i = varValue.toFloat();
-  } else if(varName == "d") {
-    d = varValue.toFloat();
-  }
+  delay(5);
 }
