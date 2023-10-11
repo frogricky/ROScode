@@ -2,13 +2,19 @@
 #include "Motor.h"
 #include "PD.h"
 
+/*
+double p = 0.8;
+double i = 0;
+double d = 0.000001;
+*/
+
 const byte timeout = 13;
 const int delayt = 5000;
 
 int setpoint = 0;
-double p = 0;
+double p = 0.8;
 double i = 0;
-double d = 0;
+double d = 0.000001;
 bool SerialStop = false;
 
 unsigned long runTime;
@@ -18,14 +24,15 @@ int Workcont  = 0;
 
 
 //(PWM, Enable, dirA, dirB, ENCA, ENCB)
-Motor motor1(22,21,23,0,17,16);
-Motor motor2(5,21,8,6,12,11);
-Motor motor3(4,21,2,3,10,9);
+Motor motor1(22,21,23,0,16,17);
+Motor motor2(5,21,8,6,11,12);
+Motor motor3(4,21,2,3,9,10);
 //(double p, double i, double d, double time, double max, double min)
 PD motorPD1(p,i,d,delayt/1000,4095,-4095);
 PD motorPD2(p,i,d,delayt/1000,4095,-4095);
 PD motorPD3(p,i,d,delayt/1000,4095,-4095);
 
+PD testPD(p,i,d,delayt/1000,4095,-4095);
 
 
 void setup() {
@@ -40,14 +47,15 @@ void loop() {
   runTime = micros();
   processSerialInput();
   
-  Working();
   
-  exPIDmotor();
 
 
+
+
+
+ Working();
  if((micros() - runTime) > delayt) digitalWrite(timeout,HIGH);
  delay(5);
- 
 }
 
 
@@ -57,10 +65,26 @@ void loop() {
 
 
 
+
+void PIDTEST(){
+  testPD.setvariable(p, i, d, SerialStop);
+  int test = testPD.PIDrun(5000, setpoint);
+  Serial.println(test);
+  Serial.println(setpoint);
+}
+
+
+
+
+
 void exPIDmotor(){
-  motorPD1.setvariable(p, i, d, SerialStop);
-  motor1.Move(motorPD1.PIDrun(motor1.EncRead(), setpoint));
-  Serial.println(motor1.EncRead());
+  motorPD2.setvariable(p, i, d, SerialStop);
+  motor2.Move(motorPD2.PIDrun(motor2.EncRead(), setpoint));
+  char outStr[20];
+  dtostrf(p, 10, 7, outStr); Serial.print("P: "); Serial.print(outStr);
+  dtostrf(i, 10, 7, outStr); Serial.print("  I: "); Serial.print(outStr);
+  dtostrf(d, 10, 7, outStr); Serial.print("  D: "); Serial.println(outStr);
+  Serial.println(motor2.EncRead());
   Serial.println(setpoint);
 }
 
