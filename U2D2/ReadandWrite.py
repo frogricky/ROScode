@@ -21,7 +21,7 @@ else:
             tty.setraw(sys.stdin.fileno())
             ch = sys.stdin.read(1)
         finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            termios.tcseattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
 from dynamixel_sdk import * # Uses Dynamixel SDK library
