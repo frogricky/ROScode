@@ -101,7 +101,8 @@ try:
     ADDR_PRESENT_POSITION       = 132
     DXL_MINIMUM_POSITION_VALUE  = 1         # Refer to the Minimum Position Limit of product eManual
     DXL_MAXIMUM_POSITION_VALUE  = 4094      # Refer to the Maximum Position Limit of product eManual
-    BAUDRATE                    = 9600
+    BAUDRATE                    = 1000000
+
     
     # DYNAMIXEL Protocol Version (1.0 / 2.0)
     # https://emanual.robotis.com/docs/en/dxl/protocol2/
